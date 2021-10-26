@@ -1,22 +1,26 @@
 import { useRef } from "react";
 import "./add-todo.scss";
 
-const AddTodo = ({todos, setTodos}) => {
+const AddTodo = ({setTodos}) => {
   const inputRef = useRef();
+
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
 
-    if (inputRef.current.value.trim()) {
-      setTodos([
-        ...todos,
-        {
-          id: Math.random(),
-          name: inputRef.current.value,
-          completed: false
-        }
-      ]);
-      inputRef.current.value = ""
+    const inputValue = inputRef.current.value;
+    if (inputValue.trim()) {
+      setTodos((todos) => {
+        return [
+          ...todos,
+          {
+            id: Math.random(),
+            title: inputValue,
+            completed: false
+          }
+        ]
+      });
     }
+    inputRef.current.value = "";
     // Name, Description, Tags (<- 1ta input) (umumiy 3ta input)
   };
 
